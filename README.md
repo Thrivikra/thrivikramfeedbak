@@ -1,1 +1,233 @@
-# thrivikramfeedbak
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thrivikram Seminar Feedback</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa, #e8edf3);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      width: 95%;
+      max-width: 850px;
+    }
+    .card {
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      text-align: left;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    h2 {
+      margin-bottom: 25px;
+      text-align: center;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    label {
+      font-weight: 500;
+      margin: 10px 0 5px;
+      display: block;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #3498db;
+      outline: none;
+      box-shadow: 0 0 8px rgba(52,152,219,0.3);
+    }
+    button {
+      background: #3498db;
+      color: white;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+      display: block;
+      margin: auto;
+    }
+    button:hover {
+      background: #217dbb;
+    }
+    /* Modern Rating Stars */
+    .stars {
+      display: flex;
+      gap: 10px;
+      font-size: 30px;
+      cursor: pointer;
+      margin: 10px 0 20px;
+      justify-content: center;
+    }
+    .stars span {
+      color: #ccc;
+      transition: color 0.3s;
+    }
+    .stars span.active,
+    .stars span:hover,
+    .stars span:hover ~ span {
+      color: gold;
+    }
+    /* Certificate Styling */
+    .certificate {
+      display: none;
+      padding: 40px;
+      border: 6px solid #e1c16e;
+      background: #fffdf5;
+      border-radius: 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .cert-title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    .cert-name {
+      font-size: 26px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #0e6655;
+    }
+    .signatures {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+      padding: 0 40px;
+    }
+    .sign-box {
+      text-align: center;
+      width: 40%;
+    }
+    .signature {
+      font-family: 'Great Vibes', cursive;
+      font-size: 32px;
+      color: #2c3e50;
+    }
+    .download-btn {
+      margin-top: 30px;
+      background: #27ae60;
+    }
+    .download-btn:hover {
+      background: #1e8449;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Feedback Form -->
+    <div class="card" id="feedbackForm">
+      <h2>Thrivikram Seminar Feedback Form</h2>
+      <form id="form">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required>
+
+        <label for="session">How was the session?</label>
+        <select id="session" required>
+          <option value="">-- Select --</option>
+          <option>Excellent</option>
+          <option>Good</option>
+          <option>Average</option>
+          <option>Poor</option>
+        </select>
+
+        <label>Rating</label>
+        <div class="stars" id="ratingStars">
+          <span data-value="1">★</span>
+          <span data-value="2">★</span>
+          <span data-value="3">★</span>
+          <span data-value="4">★</span>
+          <span data-value="5">★</span>
+        </div>
+        <input type="hidden" id="rating" required>
+
+        <label for="feedback">Additional Feedback</label>
+        <textarea id="feedback" rows="4"></textarea>
+
+        <button type="submit">Submit Feedback</button>
+      </form>
+    </div>
+
+    <!-- Certificate -->
+    <div class="certificate" id="certificateBox">
+      <div class="cert-title">Certificate of Appreciation</div>
+      <p>This certificate is proudly presented to</p>
+      <div class="cert-name" id="certName"></div>
+      <p>For attending and giving valuable feedback in the seminar conducted by Thrivikram.</p>
+      
+      <div class="signatures">
+        <div class="sign-box">
+          <div class="signature">Thrivikram</div>
+          <hr style="width:80%;">
+          <p>Signature</p>
+        </div>
+        <div class="sign-box">
+          <div class="signature">KSRM</div>
+          <hr style="width:80%;">
+          <p>Signature</p>
+        </div>
+      </div>
+      <button class="download-btn" id="downloadBtn">Download PDF</button>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    // Handle star rating
+    const stars = document.querySelectorAll("#ratingStars span");
+    const ratingInput = document.getElementById("rating");
+    stars.forEach(star => {
+      star.addEventListener("click", () => {
+        stars.forEach(s => s.classList.remove("active"));
+        star.classList.add("active");
+        let value = star.getAttribute("data-value");
+        ratingInput.value = value;
+        for (let i = 0; i < value; i++) {
+          stars[i].classList.add("active");
+        }
+      });
+    });
+
+    // Handle form submit
+    document.getElementById("form").addEventListener("submit", function(event){
+      event.preventDefault();
+      let name = document.getElementById("name").value;
+      document.getElementById("certName").innerText = name;
+      document.getElementById("feedbackForm").style.display = "none";
+      document.getElementById("certificateBox").style.display = "block";
+    });
+
+    // Handle PDF download
+    document.getElementById("downloadBtn").addEventListener("click", function () {
+      const element = document.getElementById("certificateBox");
+      html2pdf().from(element).save("Certificate.pdf");
+    });
+  </script>
+</body>
+</html>
